@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Canvas } from "@react-three/fiber";
+import { Suspense, useState } from "react";
+import { OrbitControls } from "@react-three/drei";
+import Blenderman from "./Components/Blenderman";
+import Animations from "./Components/animations/Animations";
+import "./App.css";
 function App() {
+  const [action, setAction] = useState({ prev: false, curr: false });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="display">
+      <div className="left">
+        <Animations
+          prev={action.curr}
+          change={(prev, action) => setAction({ prev: prev, curr: action })}
+        />
+      </div>
+      <div className="right">
+        <Canvas
+          className="canvas"
+          style={{ width: "600px", height: "600px", overflow: "visible " }}
         >
-          Learn React
-        </a>
-      </header>
+          <ambientLight />
+          <pointLight intensity={2} position={[-1, 1, 2]} color="black" />
+          <Suspense fallback={null}>
+            <Blenderman action={action} />
+          </Suspense>
+          <OrbitControls />
+        </Canvas>
+      </div>
     </div>
   );
 }
