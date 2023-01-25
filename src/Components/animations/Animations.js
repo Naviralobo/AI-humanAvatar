@@ -39,6 +39,14 @@ const Animations = (props) => {
           >
             T pose
           </button>
+          <button
+            onClick={() => {
+              props.rotate(!props.rotateStatus);
+            }}
+          >
+            {console.log(props.rotateStatus)}
+            {props.rotateStatus ? "Stop" : "Rotate"}
+          </button>
         </div>
       )}
     </>

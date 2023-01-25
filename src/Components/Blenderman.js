@@ -11,9 +11,12 @@ function Model(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("/blenderman.glb");
   const { actions } = useAnimations(animations, group);
-
+  console.log(nodes.Shoes.geometry.index.itemSize);
   useEffect(() => {
-    if (props.action.prev || props.action.curr === 0) {
+    if (props.action.prev && props.action.curr === 0) {
+      actions[props.action.prev].stop();
+    }
+    if (props.action.prev) {
       actions[props.action.prev].stop();
     }
     if (props.action.curr) {
@@ -30,12 +33,14 @@ function Model(props) {
             geometry={nodes.Body.geometry}
             material={materials.Bodymat}
             skeleton={nodes.Body.skeleton}
+            material-color={props.bodyColor}
           />
           <skinnedMesh
             name="Bottoms"
             geometry={nodes.Bottoms.geometry}
             material={materials.Bottommat}
             skeleton={nodes.Bottoms.skeleton}
+            material-color={props.bottomColor}
           />
           <skinnedMesh
             name="Eyelashes"
@@ -54,18 +59,21 @@ function Model(props) {
             geometry={nodes.Hair.geometry}
             material={materials.Hairmat}
             skeleton={nodes.Hair.skeleton}
+            material-color={props.hairColor}
           />
           <skinnedMesh
             name="Shoes"
             geometry={nodes.Shoes.geometry}
             material={materials.Shoesmat}
             skeleton={nodes.Shoes.skeleton}
+            material-color={props.shoeColor}
           />
           <skinnedMesh
             name="Tops"
             geometry={nodes.Tops.geometry}
             material={materials.Topmat}
             skeleton={nodes.Tops.skeleton}
+            material-color={props.topColor}
           />
         </group>
       </group>

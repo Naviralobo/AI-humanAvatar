@@ -1,0 +1,7 @@
+.colors {
+  display: flex;
+  flex-direction: row;
+}
+.colors input {
+  margin: 2px;
+}

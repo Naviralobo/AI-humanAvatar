@@ -1,14 +1,17 @@
 .right {
   border: 1px solid black;
   margin: 10px;
+  width: 50%;
 }
 .left {
   border: 1px solid black;
   padding: 10px;
   margin: 10px;
+  width: 50%;
 }
 .display {
   display: flex;
+  justify-content: space-around;
 }
 .canvas {
   width: 600px;
