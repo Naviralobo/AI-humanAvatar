@@ -13,9 +13,3 @@
   display: flex;
   justify-content: space-around;
 }
-.canvas {
-  width: 600px;
-  height: 600px;
-  overflow: visible;
-  margin-top: 20px;
-}

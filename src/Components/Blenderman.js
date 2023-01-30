@@ -4,15 +4,15 @@ Command: npx gltfjsx@6.1.3 blenderman.glb
 */
 
 import React, { useEffect, useRef } from "react";
-
-import { useGLTF, useAnimations } from "@react-three/drei";
+import { useGLTF, useAnimations, useTexture } from "@react-three/drei";
 
 function Model(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("/blenderman.glb");
   const { actions } = useAnimations(animations, group);
-  console.log(nodes.Shoes.geometry.index.itemSize);
+  const texture = useTexture(props.texture);
   useEffect(() => {
+    materials.Bottommat.map = texture;
     if (props.action.prev && props.action.curr === 0) {
       actions[props.action.prev].stop();
     }
@@ -22,11 +22,16 @@ function Model(props) {
     if (props.action.curr) {
       actions[props.action.curr].play();
     }
-  }, [props.action, actions, props.action.prev]);
+  }, [props.action, actions, props.action.prev, materials.Bottommat, texture]);
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
-        <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
+        <group
+          name="Armature"
+          rotation={[Math.PI / 2, 0, 0]}
+          scale={0.01}
+          position={[0, -2, 0]}
+        >
           <primitive object={nodes.mixamorigHips} />
           <skinnedMesh
             name="Body"
@@ -42,6 +47,7 @@ function Model(props) {
             skeleton={nodes.Bottoms.skeleton}
             material-color={props.bottomColor}
           />
+
           <skinnedMesh
             name="Eyelashes"
             geometry={nodes.Eyelashes.geometry}
@@ -68,6 +74,7 @@ function Model(props) {
             skeleton={nodes.Shoes.skeleton}
             material-color={props.shoeColor}
           />
+
           <skinnedMesh
             name="Tops"
             geometry={nodes.Tops.geometry}

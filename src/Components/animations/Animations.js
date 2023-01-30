@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./animation.css";
 import Button from "../../UI/Button";
+let arr = ["pose1", "pose2", "pose3", 0];
 
 const Animations = (props) => {
   const [showAnimations, setShowAnimations] = useState(false);
@@ -11,34 +12,16 @@ const Animations = (props) => {
       </Button>
       {showAnimations && (
         <div className="animation">
-          <button
-            onClick={() => {
-              props.change(props.prev, "pose1");
-            }}
-          >
-            Squat
-          </button>
-          <button
-            onClick={() => {
-              props.change(props.prev, "pose2");
-            }}
-          >
-            Jump
-          </button>
-          <button
-            onClick={() => {
-              props.change(props.prev, "pose3");
-            }}
-          >
-            Box
-          </button>
-          <button
-            onClick={() => {
-              props.change(props.prev, 0);
-            }}
-          >
-            T pose
-          </button>
+          {arr.map((item) => (
+            <button
+              onClick={() => {
+                props.change(props.prev, item);
+              }}
+            >
+              {item}
+            </button>
+          ))}
+
           <button
             onClick={() => {
               props.rotate(!props.rotateStatus);
