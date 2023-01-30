@@ -18,7 +18,7 @@ const Animations = (props) => {
                 props.change(props.prev, item);
               }}
             >
-              {item}
+              {item === 0 ? "TPose" : item}
             </button>
           ))}
 
@@ -27,7 +27,6 @@ const Animations = (props) => {
               props.rotate(!props.rotateStatus);
             }}
           >
-            {console.log(props.rotateStatus)}
             {props.rotateStatus ? "Stop" : "Rotate"}
           </button>
         </div>
